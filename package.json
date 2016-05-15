@@ -1,0 +1,7 @@
+{
+  "name": "paichat",
+  "dependencies": {
+    "express": "4.2.x"
+  }
+}
+  
