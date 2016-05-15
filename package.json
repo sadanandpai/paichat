@@ -1,13 +1,24 @@
 {
   "name": "paichat",
+  "version": "1.0.0",
+  "description": "app",
+  "main": "server.js",
+  "scripts": {
+    "test": "none",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sadanandpai/paichat.git"
+  },
+  "author": "akshay",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sadanandpai/paichat/issues"
+  },
+  "homepage": "https://github.com/sadanandpai/paichat#readme",
   "dependencies": {
-    "express": "4.2.x",
-    "socket.io-parser": "2.2.6",
-    "socket.io-client": "1.4.6",
-    "socket.io-adapter": "0.4.0"
-  }
-  "devDependencies": {
-    "express-session": "~1.13.0"
+    "express": "^4.13.4",
+    "socket.io": "^1.4.6"
   }
 }
-  
