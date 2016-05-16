@@ -1,6 +1,5 @@
 var express = require("express");
 var app = express();
-var port = 3700;
 
 app.use(express.static('public')); 
 app.get("/", function(req, res){
