@@ -1,63 +1,56 @@
 <html>
 <head>
     <title></title>
-    <script type="text/javascript" src="/socket.io/socket.io.js"></script>
-    <script type="text/javascript" src="js/jquery.min.js"></script>
-    <script type="text/javascript" src="js/bootstrap.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
-    <script type="text/javascript">
-        window.onload = function() {
-            var messages = [];
-            //var socket = io.connect('http://localhost:3700');
-            var socket = io.connect('https://paichat.herokuapp.com/');
-            var f1 = document.getElementById("field1");
-            var f2 = document.getElementById("field2");
-            var sendButton = document.getElementById("send");
-            var content = document.getElementById("content");
-
-            socket.on('message', function (data) {
-                if(data.message) {
-                    messages.push(data);
-                    var html = '';
-                    for(var i=0; i < messages.length; i++) {
-                        html += messages[i].username + ": " + messages[i].message + '<br />';
-                    }
-                    content.innerHTML = html;
-                } else {
-                    console.log("There is a problem:", data);
-                }
-            });
-
-            sendButton.onclick = function() {
-                var username = f1.value;
-                var chat = f2.value;
-                f2.value = "";
-                socket.emit('send', { username: username, message: chat });
-            }
-        }
-    </script>
+    <script type="text/javascript" src="https://paichat.herokuapp.com/socket.io/socket.io.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.3/jquery.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/css/bootstrap.min.css" />
+	<style>
+		#messages {
+			width: 90%;
+			height: 32em;
+			border: 1px solid grey;
+			overflow: auto;
+		}
+	</style>
+	<script>count = 0;</script>
 </head>
 <body>
     <div class="container">
-    <h2>Welcome to Chat</h2>
-    <div class="col-md-12">
-        <table class="table">
-            <tr>
-                <td>
-                    <input type="text" class="form-control" id="field1" />
-                </td>
-                <td>
-                    <input type="text" class="form-control" id="field2" />
-                </td>
-                <td>
-                    <button class="btn btn-primary" id="send">Send</button>
-                </td>
-            </tr>
-        </table>
-    </div>
-    
-    
-    <div id="content"></div>
+		<h2>Welcome to Chat</h2>
+		<form action="">
+			<table class="table">
+				<tr>
+					<td>
+						<input type="text" class="form-control" id="field1" />
+					</td>
+					<td>
+						<input type="text" class="form-control" id="field2" required="required" />
+					</td>
+					<td>
+						<button class="btn btn-primary" id="send">Send</button>
+					</td>
+				</tr>
+			</table>
+		</form>
+		
+		<script type="text/javascript">
+			var socket = io.connect('https://paichat.herokuapp.com');
+			$('form').submit(function(){
+				socket.emit('send', {username: $('#field1').val(), message: $('#field2').val()} );
+				$('#field2').val('');
+				return false;
+			});
+			socket.on('message', function(data){
+				console.log(count);
+				if(count++ >= 22)
+					$('#messages li').first().remove();
+				$('#messages').append($('<li>').text(data.username + ": " + data.message));
+			});
+		</script>
+			
+		<ul id="messages"></ul>
+	
     </div>
 </body>
 </html>
