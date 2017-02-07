@@ -50,6 +50,7 @@
 				if(count++ >= 22)
 					$('#messages li').first().remove();
 				$('#messages').append($('<li>').text(data.username + ": " + data.message));
+				console.log(data.host);
 			});
 		</script>
 			
