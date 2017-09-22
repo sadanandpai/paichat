@@ -7,7 +7,6 @@ app.get("/", function(req, res){
 });
 
 var io = require('socket.io').listen(app.listen(process.env.PORT || 5000));
-var connectCounter = 0;
 
 io.sockets.on('connection', function (socket) {
     socket.on('send', function (data) {
