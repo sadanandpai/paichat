@@ -17,7 +17,9 @@
 			
 		}
 	</style>
-	<script>count = 0;</script>
+	<script>count = 0;
+	var audio = new Audio('https://notificationsounds.com/soundfiles/cf67355a3333e6e143439161adc2d82e/file-sounds-874-gets-in-the-way.mp3:);
+	</script>
 </head>
 <body>
     <div class="container">
@@ -51,6 +53,7 @@
 					$('#messages li').first().remove();
 				$('#messages').append($('<li>').text(data.username + ": " + data.message));
 				console.log(data.host);
+				audio.play();
 			});
 		</script>
 			
