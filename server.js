@@ -15,8 +15,3 @@ io.sockets.on('connection', function (socket) {
         io.sockets.emit('message', data);
     });
 });
-
-io.sockets.on('connection', function (socket) {
-    counter++;
-    io.sockets.emit('counter', data);
-});
