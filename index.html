@@ -55,9 +55,13 @@
 				console.log(data.host);
 				audio.play();
 			});
+			socket.on('counter', function(data){
+				$('#counter').html(data);
+			});
 		</script>
 			
 		<ul id="messages"></ul>
+	    	Number of connected users is/are <span id="counter"></span>
 	
     </div>
 </body>
