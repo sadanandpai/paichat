@@ -7,6 +7,7 @@ app.get("/", function(req, res){
 });
 
 var io = require('socket.io').listen(app.listen(process.env.PORT || 5000));
+io.origins(['https://paichat.herokuapp.com/']);
 var counter = 0;
 
 io.sockets.on('connection', function (socket) {
