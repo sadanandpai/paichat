@@ -42,27 +42,75 @@
 		
 		<script type="text/javascript">
 			var socket = io.connect('https://paichat.herokuapp.com');
+			var sockid, counter = 0, exiter="";
+
+			socket.emit('ferret', 'id', function (data) {
+		      sockid = data;
+		    });
+
 			$('form').submit(function(){
-				socket.emit('send', {username: $('#field1').val(), message: $('#field2').val()} );
+				socket.emit('send', {sockid: sockid, username: $('#field1').val(), message: $('#field2').val()} );
 				$('#field2').val('');
+				$('#field1').prop( "disabled", true );
 				return false;
 			});
+
 			socket.on('message', function(data){
-				console.log(count);
 				if(count++ >= 22)
 					$('#messages li').first().remove();
-				$('#messages').append($('<li>').text(data.username + ": " + data.message));
-				console.log(data.host);
-				audio.play();
+				if(sockid == data.sockid)
+					$('#messages').append($("<li align='right'>").text(data.message));
+				else {
+					$('#messages').append($("<li>").text(data.username + ": " + data.message));
+					audio.play();
+				}
+				$('#field2').focus();
+				
 			});
+
 			socket.on('counter', function(data){
+				if(counter != 0){
+					if(counter < data)
+						$('#messages').append($("<li style='background-color:lightgrey' align='center'>").text("New user joined"));
+					else if(counter > data)
+						$('#messages').append($("<li style='background-color:lightgrey' align='center'>").text(((exiter == "") ? "User" : exiter) + " left"));
+				}
+
+				counter = data;
 				$('#counter').html(data);
 			});
+
+			socket.on('exit', function(data){
+				exiter = data;
+			});
+
+			socket.on('typing', function(data){
+				$('#typer').html(data + ' is typing');
+				setTimeout(function () {
+		            $('#typer').html('');
+		        }, 3000);
+			});
+
+			$("#field2").on('input', function(){
+				if($('#field1').val() != "")
+			    	socket.emit('typing', $('#field1').val());
+			});
+
+			$(window).on('beforeunload', function() {
+			    socket.emit('exit', $('#field1').val());
+			});
+
 		</script>
 			
 		<ul id="messages"></ul>
-	    Number of connected users:<b> <span id="counter"></span></b>
-	
+		<table width="100%">
+			<tr>
+				<td>Number of connected users: <b><span id="counter"></span></b></td>
+				<td><span id="typer" style="color:grey;text-align:right"></span></td>
+			</tr>
+		</table>
+	    
+	    
     </div>
 </body>
 </html>
