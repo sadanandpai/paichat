@@ -16,12 +16,12 @@ io.sockets.on('connection', function (socket) {
     });
 });
 
-socket.on("connect", function () {
+io.socket.on("connect", function () {
     counter++;
     io.sockets.emit('counter', counter);
 });
 
-socket.on("disconnect", function () {
+io.socket.on("disconnect", function () {
     counter--;
     io.sockets.emit('counter', counter);
 });
