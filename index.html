@@ -22,7 +22,7 @@
 	</style>
 	<script>count = 0;
 	var audio1 = new Audio('https://notificationsounds.com/soundfiles/07563a3fe3bbe7e3ba84431ad9d055af/file-sounds-946-capisci.mp3');
-	var audio2 = new Audio('https://notificationsounds.com/soundfiles/f3f27a324736617f20abbf2ffd806f6d/file-sounds-1060-demonstrative.mp3');
+	var audio2 = new Audio('https://notificationsounds.com/soundfiles/cf67355a3333e6e143439161adc2d82e/file-sounds-874-gets-in-the-way.mp3');
 	</script>
 </head>
 <body>
@@ -83,7 +83,7 @@
 				if(count++ >= 22)
 					$('#messages li').first().remove();
 			}
-
+			audio2.play();
 			counter = data;
 			$('#counter').html(data);
 		});
