@@ -1,6 +1,6 @@
 <html>
 <head>
-    <title>Pai Chat</title>
+    <title>Pai chat</title>
     <script type="text/javascript" src="https://paichat.herokuapp.com/socket.io/socket.io.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.3/jquery.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/js/bootstrap.min.js"></script>
@@ -31,13 +31,13 @@
 		<form action="">
 			<table class="table">
 				<tr>
-					<td>
-						<input type="text" class="form-control" id="field1" required="required" autocomplete="off" />
+					<td class="col-md-3">
+						<input type="text" class="form-control" id="field1" placeholder="Name" required="required" autocomplete="off" pattern="[A-Za-z]{3-15}" title="Enter your name"/>
 					</td>
-					<td>
-						<input type="text" class="form-control" id="field2" required="required" autocomplete="off" />
+					<td class="col-md-7">
+						<input type="text" class="form-control" id="field2" placeholder="Type your text" required="required" maxlength="80" autocomplete="off" />
 					</td>
-					<td>
+					<td class="col-md-2">
 						<button class="btn btn-primary" id="send">Send</button>
 					</td>
 				</tr>
@@ -84,6 +84,7 @@
 					$('#messages li').first().remove();
 			}
 			audio2.play();
+
 			counter = data;
 			$('#counter').html(data);
 		});
