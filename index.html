@@ -1,6 +1,6 @@
 <html>
 <head>
-    <title>Pai Chat</title>
+    <title></title>
     <script type="text/javascript" src="https://paichat.herokuapp.com/socket.io/socket.io.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.3/jquery.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/js/bootstrap.min.js"></script>
@@ -26,15 +26,15 @@
 </head>
 <body>
     <div class="container">
-		<i><h2>Welcome to Pai Chat</h2></i>
+		<i><h2>Welcome to Chat</h2></i>
 		<form action="">
 			<table class="table">
 				<tr>
 					<td>
-						<input type="text" class="form-control" id="field1" />
+						<input type="text" class="form-control" id="field1" required="required" autocomplete="off" />
 					</td>
 					<td>
-						<input type="text" class="form-control" id="field2" required="required" />
+						<input type="text" class="form-control" id="field2" required="required" autocomplete="off" />
 					</td>
 					<td>
 						<button class="btn btn-primary" id="send">Send</button>
@@ -42,78 +42,82 @@
 				</tr>
 			</table>
 		</form>
-		
+
 		<script type="text/javascript">
 			var socket = io.connect('https://paichat.herokuapp.com');
 			var sockid, counter = 0, exiter="";
 
 			socket.emit('ferret', 'id', function (data) {
-		      	sockid = data;
+		      sockid = data;
 		    });
 
-			$('form').submit(function(){
+		$('form').submit(function(){
+			if($('#field1').val() != ""){
 				socket.emit('send', {sockid: sockid, username: $('#field1').val(), message: $('#field2').val()} );
 				$('#field2').val('');
 				$('#field1').prop( "disabled", true );
-				return false;
-			});
+			}
+			return false;
+		});
 
-			socket.on('message', function(data){
+		socket.on('message', function(data){
+			if(count++ >= 22)
+				$('#messages li').first().remove();
+			if(sockid == data.sockid)
+				$('#messages').append($("<li align='right'>").text(data.message));
+			else {
+				$('#messages').append($("<li>").text(data.username + ": " + data.message));
+				audio.play();
+			}
+			$('#field2').focus();
+
+		});
+
+		socket.on('counter', function(data){
+			if(counter != 0){
+				if(counter < data)
+					$('#messages').append($("<li style='background-color:lightgrey' align='center'>").text("New user joined"));
+				else if(counter > data)
+					$('#messages').append($("<li style='background-color:lightgrey' align='center'>").text(((exiter == "") ? "User" : exiter) + " left"));
 				if(count++ >= 22)
 					$('#messages li').first().remove();
-				if(sockid == data.sockid)
-					$('#messages').append($("<li align='right'>").text(data.message));
-				else {
-					$('#messages').append($("<li>").text(data.username + ": " + data.message));
-					audio.play();
-				}
-				$('#field2').focus();
-				
-			});
+			}
 
-			socket.on('counter', function(data){
-				if(counter != 0){
-					if(counter < data)
-						$('#messages').append($("<li style='background-color:lightgrey' align='center'>").text("New user joined"));
-					else if(counter > data)
-						$('#messages').append($("<li style='background-color:lightgrey' align='center'>").text(((exiter == "") ? "User" : exiter) + " left"));
-				}
+			counter = data;
+			$('#counter').html(data);
+		});
 
-				counter = data;
-				$('#counter').html(data);
-			});
+		socket.on('exit', function(data){
+			exiter = data;
+		});
 
-			socket.on('exit', function(data){
-				exiter = data;
-			});
+		socket.on('typing', function(data){
+			$('#typer').html(data + ' is typing');
+			setTimeout(function () {
+		    $('#typer').html('');
+		}, 3000);
+		});
 
-			socket.on('typing', function(data){
-				$('#typer').html(data + ' is typing');
-				setTimeout(function () {
-		            $('#typer').html('');
-		        }, 3000);
-			});
+		$("#field2").on('input', function(){
+			if($('#field1').val() != "")
+			socket.emit('typing', $('#field1').val());
+		});
 
-			$("#field2").on('input', function(){
-				if($('#field1').val() != "")
-			    	socket.emit('typing', $('#field1').val());
-			});
+		$(window).on('beforeunload', function() {
+		    socket.emit('exit', $('#field1').val());
+		});
 
-			$(window).on('beforeunload', function() {
-			    socket.emit('exit', $('#field1').val());
-			});
+	</script>
 
-		</script>
-			
-		<ul id="messages"></ul>
-		<table width="100%">
-			<tr>
-				<td>Number of connected users: <b><span id="counter"></span></b></td>
-				<td><span id="typer" style="color:grey;text-align:right"></span></td>
-			</tr>
-		</table>
-	    
-	    
+	<ul id="messages"></ul>
+	<table width="100%">
+		<tr>
+			<td>Number of connected users: <b><span id="counter"></span></b></td>
+			<td><span id="typer" style="color:grey;text-align:right"></span></td>
+		</tr>
+	</table>
+
+
     </div>
 </body>
 </html>
