@@ -90,7 +90,6 @@
 
 		socket.on('exit', function(data){
 			exiter = data;
-			audio2.play();
 		});
 
 		socket.on('typing', function(data){
@@ -107,7 +106,6 @@
 
 		$(window).on('beforeunload', function() {
 		    socket.emit('exit', $('#field1').val());
-		    audio1.play();
 		});
 
 	</script>
