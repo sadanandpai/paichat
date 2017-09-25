@@ -1,3 +1,4 @@
+
 <html>
 <head>
     <title>Pai chat</title>
@@ -8,6 +9,7 @@
 	<style>
 		body{
 			font-size: 15px;
+			background-image: url("https://www.w3schools.com/css/trolltunga.jpg");
 		}
 		#messages {
 			width: 90%;
@@ -15,10 +17,15 @@
 			border: 1px solid grey;
 			overflow: auto;
 			padding-right: 40px;
+			background-color: white;
+		}
+		#statusbar{
+			background-color: white;
 		}
 		ul {
 		  list-style-type: none;
 		}
+		
 	</style>
 	<script>count = 0;
 	var audio1 = new Audio('https://notificationsounds.com/soundfiles/07563a3fe3bbe7e3ba84431ad9d055af/file-sounds-946-capisci.mp3');
@@ -112,7 +119,7 @@
 	</script>
 
 	<ul id="messages"></ul>
-	<table width="100%">
+	<table id="statusbar" width="90%">
 		<tr>
 			<td>Number of connected users: <b><span id="counter"></span></b></td>
 			<td><span id="typer" style="color:grey;text-align:right"></span></td>
