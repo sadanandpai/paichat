@@ -1,4 +1,5 @@
 
+
 <html>
 <head>
     <title>Pai chat</title>
@@ -7,6 +8,60 @@
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/js/bootstrap.min.js"></script>
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/css/bootstrap.min.css" />
 	<style>
+	
+/* Center the loader */
+#loader {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  z-index: 1;
+  width: 150px;
+  height: 150px;
+  margin: -75px 0 0 -75px;
+  border: 16px solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 16px solid #3498db;
+  width: 120px;
+  height: 120px;
+  -webkit-animation: spin 2s linear infinite;
+  animation: spin 2s linear infinite;
+}
+
+@-webkit-keyframes spin {
+  0% { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Add animation to "page content" */
+.animate-bottom {
+  position: relative;
+  -webkit-animation-name: animatebottom;
+  -webkit-animation-duration: 1s;
+  animation-name: animatebottom;
+  animation-duration: 1s
+}
+
+@-webkit-keyframes animatebottom {
+  from { bottom:-100px; opacity:0 } 
+  to { bottom:0px; opacity:1 }
+}
+
+@keyframes animatebottom { 
+  from{ bottom:-100px; opacity:0 } 
+  to{ bottom:0; opacity:1 }
+}
+
+#myDiv {
+  display: none;
+  text-align: center;
+}
+	
+	
 		body{
 			font-size: 15px;
 			background-image: url("https://www.w3schools.com/css/trolltunga.jpg");
@@ -41,9 +96,12 @@
 	var audio2 = new Audio('https://notificationsounds.com/soundfiles/cf67355a3333e6e143439161adc2d82e/file-sounds-874-gets-in-the-way.mp3');
 	</script>
 </head>
-<body>
-    <div class="container">
-		<i><h2>Welcome to Pai Chat</h2></i>
+<body  onload="myFunction()" style="margin:0;">
+
+<div id="loader"></div>
+    <div class="container" style="display:none;" id="myDiv" class="animate-bottom">
+		<i><h2 style="color:green">Welcome to Pai Chat</h2></i>
+		
 		<form action="">
 			<table class="table">
 				<tr>
@@ -83,7 +141,7 @@
 			if(sockid == data.sockid)
 				$('#messages').append($("<li align='right'>").text(data.message));
 			else {
-				$('#messages').append($("<li>").text(data.username + ": " + data.message));
+				$('#messages').append($("<li align='left'>").text(data.username + ": " + data.message));
 				audio1.play();
 			}
 			$('#field2').focus();
@@ -124,7 +182,16 @@
 		$(window).on('beforeunload', function() {
 		    socket.emit('exit', $('#field1').val());
 		});
+		
+		var myVar;
+		function myFunction() {
+    myVar = setTimeout(showPage, 3000);
+                         }
 
+        function showPage() {
+      document.getElementById("loader").style.display = "none";
+       document.getElementById("myDiv").style.display = "block";
+}
 	</script>
 
 	<ul id="messages"></ul>
