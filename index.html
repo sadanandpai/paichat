@@ -119,7 +119,7 @@
 		</form>
 
 		<script type="text/javascript">
-			var socket = io.connect('http://paichat.herokuapp.com/');
+			var socket = io.connect('https://paichat.herokuapp.com/');
 			var sockid, counter = 0, exiter="";
 
 			socket.emit('ferret', 'id', function (data) {
