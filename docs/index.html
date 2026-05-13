@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pai Chat</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Pai Chat</h1>
+        <p>Hey, this is Sadanand Pai here. Ask me anything about my professional life or the guidance that you are seeking in your career!</p>
+
+
+        <div class="chat-container">
+            <!-- Chat Input -->
+            <form id="chat-form" class="chat-form">
+                <input 
+                    type="text" 
+                    id="chat-input" 
+                    placeholder="Enter your prompt" 
+                    class="chat-input"
+                    disabled
+                />
+                <button 
+                    type="submit" 
+                    id="send-button" 
+                    class="send-button"
+                    disabled
+                >
+                    Send
+                </button>
+            </form>
+
+            <!-- Latest Response Display -->
+            <div id="response-display" class="response-display hidden">
+                <p id="prompt-text"></p>
+                <p id="response-text"></p>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
