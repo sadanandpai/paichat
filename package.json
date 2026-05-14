@@ -1,27 +1,18 @@
 {
-  "name": "paichat",
-  "version": "1.0.0",
-  "description": "app",
-  "main": "server.js",
+  "name": "chat",
+  "type": "module",
   "scripts": {
-    "test": "none",
-    "start": "node server.js"
+    "dev": "wrangler dev",
+    "dev:ui": "serve public -l 3210",
+    "deploy": "wrangler deploy --minify",
+    "cf-typegen": "wrangler types --env-interface CloudflareBindings"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/sadanandpai/paichat.git"
-  },
-  "author": "akshay",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/sadanandpai/paichat/issues"
-  },
-  "homepage": "https://github.com/sadanandpai/paichat#readme",
   "dependencies": {
-    "express": "^4.13.4",
-    "socket.io": "^1.4.6"
+    "hono": "^4.12.18"
   },
-  "engines": {
-    "node": "4.4.3"
+  "devDependencies": {
+    "@types/node": "^25.7.0",
+    "serve": "^14.2.6",
+    "wrangler": "^4.90.1"
   }
 }

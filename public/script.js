@@ -37,7 +37,10 @@ chatForm.addEventListener('submit', async (e) => {
     const messagesWithUser = [...messages, userMessage].slice(-MAX_MESSAGES);
 
     try {
-        const response = await fetch('https://my-test.paicube.workers.dev/ask', {
+        // if we are in dev mode (localhost), use localhost, otherwise use the current origin
+        const apiUrl = window.location.hostname === 'localhost' ? 'http://localhost:8787/ask' : '/ask';
+
+        const response = await fetch(apiUrl, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
