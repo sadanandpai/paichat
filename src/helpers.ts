@@ -45,10 +45,11 @@ export async function getPromptCategory(c: any, text: string) {
       },
       { role: "user", content: text },
     ],
-    max_tokens: 5,
   });
 
-  const cleanedResponse = classification.response.trim().toUpperCase();
+  const cleanedResponse = classification.choices[0].message.content
+    .trim()
+    .toUpperCase();
 
   if (cleanedResponse.includes("GREETING")) return "GREETING";
   if (cleanedResponse.includes("PERSONAL")) return "PERSONAL";
@@ -74,7 +75,7 @@ export async function getStandaloneQuestion(c: any, messages: any[]) {
     ],
   });
 
-  return result.response.trim();
+  return result.choices[0].message.content;
 }
 
 export async function getTopKMatches(c: any, embedding: any, topK: number = 3) {
@@ -114,8 +115,9 @@ export async function getQueryResponse(
     ...messagesHistory, // Include recent conversation history for context
   ];
 
-  return await c.env.AI.run(LLM_MODEL, {
+  const result = await c.env.AI.run(LLM_MODEL, {
     messages,
-    max_tokens: 300,
   });
+
+  return { response: result.choices[0].message.content };
 }
