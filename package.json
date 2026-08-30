@@ -1,18 +1,42 @@
 {
-  "name": "chat",
-  "type": "module",
+  "name": "mychat",
+  "version": "0.1.0",
+  "private": true,
   "scripts": {
-    "dev": "wrangler dev",
-    "dev:ui": "serve public -l 3210",
-    "deploy": "wrangler deploy --minify",
-    "cf-typegen": "wrangler types --env-interface CloudflareBindings"
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint"
   },
   "dependencies": {
-    "hono": "^4.12.18"
+    "@ai-sdk/langchain": "^3.0.84",
+    "@ai-sdk/react": "^4.0.87",
+    "@assistant-ui/react": "^0.15.17",
+    "@assistant-ui/react-ai-sdk": "^1.4.8",
+    "@assistant-ui/react-markdown": "^0.14.13",
+    "@langchain/core": "^1.2.9",
+    "@langchain/google-genai": "^2.3.0",
+    "@langchain/langgraph": "^1.4.13",
+    "@langchain/textsplitters": "^1.0.1",
+    "@upstash/redis": "^1.38.3",
+    "ai": "^7.0.84",
+    "fuse.js": "^7.5.0",
+    "langchain": "^1.5.10",
+    "next": "^16.3.0",
+    "react": "19.2.8",
+    "react-dom": "19.2.8",
+    "remark-gfm": "^4.0.1",
+    "weaviate-client": "^3.14.0"
   },
   "devDependencies": {
-    "@types/node": "^25.7.0",
-    "serve": "^14.2.6",
-    "wrangler": "^4.90.1"
+    "@tailwindcss/postcss": "^4",
+    "@types/node": "^20",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "eslint": "^9",
+    "eslint-config-next": "16.3.0",
+    "tailwindcss": "^4",
+    "tsx": "^4.23.12",
+    "typescript": "^6.0.3"
   }
 }

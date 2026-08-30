@@ -1,41 +1,45 @@
-# PAI Chat
+# Pai Chat
 
-AI-powered digital clone - A chat application built with Hono on Cloudflare Workers.
+First-person chat with [Sadanand Pai](https://github.com/sadanandpai). Grounded answers from a personal knowledge base — work, projects, people, companies, skills. Off-topic and private questions are refused.
 
-## Run Locally
+## Stack
+
+Next.js 16 · LangChain · Gemini (or Claude CLI) · Weaviate · Upstash Redis · [assistant-ui](https://www.assistant-ui.com/)
+
+## Setup
 
 ```bash
+cp .env.example .env.local
 npm install
-npm run dev (starts backend)
-npm run dev:ui (starts frontend)
+npm run dev
 ```
 
-Change the `UI_URL` in `src/config.ts` to "\*" to allow all origins for local development.
+Open [http://localhost:3000](http://localhost:3000).
 
-## Deploy
+## Providers
 
-Deploy to Cloudflare Workers:
+Set `LLM_PROVIDER` in `.env.local`:
+
+| Value | Model | Grounding |
+|---|---|---|
+| unset / anything else | Gemini `gemini-3.5-flash-lite` | Full toolset (intro, companies, people, projects, skills, knowledge) |
+| `claude-cli` | Local [`claude`](https://docs.anthropic.com/en/docs/claude-code) CLI | None — text only, no tools |
+
+Gemini needs `GOOGLE_API_KEY`, Weaviate, and Upstash. Claude CLI uses the CLI's own auth — no API key, but ungrounded and billed per token.
+
+Optional: `CLAUDE_CLI_MODEL` to pin the Claude model.
+
+## Knowledge
+
+Tool data lives in Redis. Long-form knowledge is chunked and indexed in Weaviate.
+
+Edit it at `/admin?token=<ADMIN_SECRET>`. Cookie is set for 30 days; token is stripped from the URL.
+
+## Scripts
 
 ```bash
-npm run deploy
+npm run dev     # local server
+npm run build   # production build
+npm run start   # serve production build
+npm run lint    # eslint
 ```
-
-## Configuration
-
-Update `src/config.ts` to modify `UI_URL` for CORS settings.
-
-## Project Structure
-
-- `src/index.ts` - Main API entry point
-- `src/helpers.ts` - Core business logic
-- `src/vectors.ts` - Vector search functionality
-- `public/` - Frontend UI files
-
-## To use it as AI-powered for you
-
-- Enter your details in the vectors array in `src/vectors.ts`
-- Uncomment the `/upsert` endpoint in `src/index.ts`
-- Start the server and hit the `/upsert` endpoint to upsert the vectors
-- Comment out the `/upsert` endpoint in `src/index.ts`
-- Change the PERSONA_NAME & other details in `src/config.ts`
-- Deploy the app to Cloudflare Workers
