@@ -41,5 +41,11 @@ Edit it at `/admin?token=<ADMIN_SECRET>`. Cookie is set for 30 days; token is st
 npm run dev     # local server
 npm run build   # production build
 npm run start   # serve production build
-npm run lint    # eslint
+npm run lint    # oxlint
 ```
+
+## Linting
+
+`npm run lint` uses Oxlint with TypeScript, React Hooks, accessibility, import, and Next.js rules. Configuration lives in `.oxlintrc.json`; generated Next.js files and build output are ignored.
+
+This replaces the ESLint presets rather than providing exact rule parity. The supported Next.js Core Web Vitals rules retain their previous severities. `@next/next/no-location-assign-relative-destination` is not available in Oxlint 1.89.0.

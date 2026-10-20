@@ -8,13 +8,15 @@ import remarkGfm from "remark-gfm";
 
 const components = memoizeMarkdownComponents({
   p: ({ ...props }) => <p className="mb-3 last:mb-0" {...props} />,
-  a: ({ ...props }) => (
+  a: ({ children, ...props }) => (
     <a
       className="font-medium text-blue-600 underline underline-offset-2 hover:no-underline dark:text-blue-400"
       target="_blank"
       rel="noopener noreferrer"
       {...props}
-    />
+    >
+      {children}
+    </a>
   ),
   ul: ({ ...props }) => (
     <ul className="mb-3 list-disc pl-5 last:mb-0 [&>li]:mt-1" {...props} />
@@ -23,14 +25,20 @@ const components = memoizeMarkdownComponents({
     <ol className="mb-3 list-decimal pl-5 last:mb-0 [&>li]:mt-1" {...props} />
   ),
   strong: ({ ...props }) => <strong className="font-semibold" {...props} />,
-  h1: ({ ...props }) => (
-    <h1 className="mb-2 mt-4 text-base font-semibold first:mt-0" {...props} />
+  h1: ({ children, ...props }) => (
+    <h1 className="mb-2 mt-4 text-base font-semibold first:mt-0" {...props}>
+      {children}
+    </h1>
   ),
-  h2: ({ ...props }) => (
-    <h2 className="mb-2 mt-4 text-base font-semibold first:mt-0" {...props} />
+  h2: ({ children, ...props }) => (
+    <h2 className="mb-2 mt-4 text-base font-semibold first:mt-0" {...props}>
+      {children}
+    </h2>
   ),
-  h3: ({ ...props }) => (
-    <h3 className="mb-2 mt-4 text-sm font-semibold first:mt-0" {...props} />
+  h3: ({ children, ...props }) => (
+    <h3 className="mb-2 mt-4 text-sm font-semibold first:mt-0" {...props}>
+      {children}
+    </h3>
   ),
   blockquote: ({ ...props }) => (
     <blockquote

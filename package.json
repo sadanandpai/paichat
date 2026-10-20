@@ -6,37 +6,41 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "oxlint ."
   },
   "dependencies": {
-    "@ai-sdk/langchain": "^3.0.84",
-    "@ai-sdk/react": "^4.0.87",
-    "@assistant-ui/react": "^0.15.17",
-    "@assistant-ui/react-ai-sdk": "^1.4.8",
-    "@assistant-ui/react-markdown": "^0.14.13",
-    "@langchain/core": "^1.2.9",
-    "@langchain/google-genai": "^2.3.0",
-    "@langchain/langgraph": "^1.4.13",
-    "@langchain/textsplitters": "^1.0.1",
-    "@upstash/redis": "^1.38.3",
-    "ai": "^7.0.84",
+    "@ai-sdk/langchain": "^3.0.146",
+    "@ai-sdk/react": "^4.0.150",
+    "@assistant-ui/react": "^0.15.30",
+    "@assistant-ui/react-ai-sdk": "^1.4.19",
+    "@assistant-ui/react-markdown": "^0.14.23",
+    "@langchain/core": "^1.2.19",
+    "@langchain/google-genai": "^2.3.4",
+    "@langchain/langgraph": "^1.5.1",
+    "@langchain/textsplitters": "^1.0.2",
+    "@upstash/redis": "^1.39.0",
+    "ai": "^7.0.146",
     "fuse.js": "^7.5.0",
-    "langchain": "^1.5.10",
-    "next": "^16.3.6",
-    "react": "19.2.8",
-    "react-dom": "19.2.8",
+    "langchain": "^1.5.18",
+    "next": "^16.4.2",
+    "react": "19.3.1",
+    "react-dom": "19.3.1",
     "remark-gfm": "^4.0.1",
-    "weaviate-client": "^3.14.0"
+    "weaviate-client": "^3.15.1"
   },
   "devDependencies": {
-    "@tailwindcss/postcss": "^4",
+    "@tailwindcss/postcss": "^4.3.3",
     "@types/node": "^20",
-    "@types/react": "^19",
-    "@types/react-dom": "^19",
-    "eslint": "^9",
-    "eslint-config-next": "16.3.0",
-    "tailwindcss": "^4",
-    "tsx": "^4.23.12",
-    "typescript": "^6.0.3"
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "tailwindcss": "^4.3.3",
+    "tsx": "^4.23.15",
+    "typescript": "^6.0.3",
+    "oxlint": "^1.89.0"
+  },
+  "allowScripts": {
+    "esbuild@0.28.2": true,
+    "fsevents": false,
+    "protobufjs": false
   }
 }
